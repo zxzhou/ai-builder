@@ -26,4 +26,3 @@ Each project has its own README with specific installation and usage instruction
 ## License
 
 This collection is open source and available for educational purposes.
-
