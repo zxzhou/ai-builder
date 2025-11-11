@@ -13,6 +13,16 @@ A web scraper to extract paper information from the CVPR 2024 Open Access websit
 - Incremental saving with resume capability
 - Automatic duplicate prevention
 
+### [Project 2: Instagram Image Downloader](./project-2/)
+
+A tool to download all images from public Instagram accounts with anti-bot protection. Uses instaloader library for reliable downloads.
+
+**Features:**
+- Anti-bot protection (rate limiting, proper headers)
+- Optional login support for better rate limits
+- Automatic directory organization
+- Progress tracking
+
 ## Getting Started
 
 Each project has its own README with specific installation and usage instructions. Navigate to the project folder for details.
