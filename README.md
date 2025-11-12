@@ -23,6 +23,16 @@ A tool to download all images from public Instagram accounts with anti-bot prote
 - Automatic directory organization
 - Progress tracking
 
+### [Project 3: Search Query Redirect Tool](./project-3/)
+
+A JavaScript tool that enhances your web search experience by redirecting search queries to alternative search engines when results are unsatisfactory. Automatically extracts queries from major search engines and redirects to your preferred alternative.
+
+**Features:**
+- Automatic query extraction from multiple search engines
+- Support for 10+ alternative search engines
+- Works as bookmarklet, browser extension, or console script
+- Easy one-click redirect functionality
+
 ## Getting Started
 
 Each project has its own README with specific installation and usage instructions. Navigate to the project folder for details.

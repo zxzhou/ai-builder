@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Redirect Tool - Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .example {
+            background: #f4f4f4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        code {
+            background: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Redirect Tool - Example Usage</h1>
+    
+    <p>This page demonstrates how to use the search redirect tool. To use it on actual search results pages:</p>
+    
+    <div class="example">
+        <h3>Method 1: Browser Console</h3>
+        <ol>
+            <li>Go to a search results page (e.g., <code>https://www.google.com/search?q=example</code>)</li>
+            <li>Open browser console (F12 or Cmd+Option+I)</li>
+            <li>Load the script: <code>&lt;script src="search_redirect.js"&gt;&lt;/script&gt;</code></li>
+            <li>Run: <code>enhanceSearch()</code></li>
+        </ol>
+    </div>
+    
+    <div class="example">
+        <h3>Method 2: Test Query Extraction</h3>
+        <p>Enter a test URL to see how query extraction works:</p>
+        <input type="text" id="testUrl" placeholder="https://www.google.com/search?q=test+query" style="width: 100%; padding: 8px; margin: 10px 0;">
+        <button onclick="testExtraction()">Test Extraction</button>
+        <div id="result" style="margin-top: 10px; padding: 10px; background: white; border-radius: 3px;"></div>
+    </div>
+    
+    <div class="example">
+        <h3>Method 3: Test URL Construction</h3>
+        <p>Enter a query to see alternative search engine URLs:</p>
+        <input type="text" id="testQuery" placeholder="your search query" style="width: 100%; padding: 8px; margin: 10px 0;">
+        <button onclick="testUrlConstruction()">Show Alternative URLs</button>
+        <div id="urlResult" style="margin-top: 10px; padding: 10px; background: white; border-radius: 3px;"></div>
+    </div>
+    
+    <script src="search_redirect.js"></script>
+    <script>
+        function testExtraction() {
+            const testUrl = document.getElementById('testUrl').value;
+            if (!testUrl) {
+                alert('Please enter a URL');
+                return;
+            }
+            
+            // Create a temporary URL object to test extraction
+            try {
+                const url = new URL(testUrl);
+                const hostname = url.hostname.toLowerCase();
+                
+                const searchEngineParams = {
+                    'google.com': 'q',
+                    'google.co.uk': 'q',
+                    'google.ca': 'q',
+                    'bing.com': 'q',
+                    'duckduckgo.com': 'q',
+                    'yahoo.com': 'p',
+                    'yandex.com': 'text',
+                    'baidu.com': 'wd'
+                };
+                
+                let queryParam = null;
+                for (const [domain, param] of Object.entries(searchEngineParams)) {
+                    if (hostname.includes(domain)) {
+                        queryParam = param;
+                        break;
+                    }
+                }
+                
+                if (!queryParam) {
+                    queryParam = url.searchParams.get('q') ? 'q' : 
+                                url.searchParams.get('p') ? 'p' : null;
+                }
+                
+                const query = queryParam ? url.searchParams.get(queryParam) : null;
+                
+                const resultDiv = document.getElementById('result');
+                if (query) {
+                    resultDiv.innerHTML = `
+                        <strong>Extracted Query:</strong> "${decodeURIComponent(query)}"<br>
+                        <strong>Query Parameter:</strong> ${queryParam}<br>
+                        <strong>Alternative URLs:</strong><br>
+                        ${Object.entries({
+                            'DuckDuckGo': `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
+                            'Bing': `https://www.bing.com/search?q=${encodeURIComponent(query)}`,
+                            'Yahoo': `https://search.yahoo.com/search?p=${encodeURIComponent(query)}`
+                        }).map(([name, url]) => `<a href="${url}" target="_blank">${name}</a>`).join(' | ')}
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<strong>Error:</strong> Could not extract query from URL.';
+                }
+            } catch (e) {
+                document.getElementById('result').innerHTML = `<strong>Error:</strong> Invalid URL format.`;
+            }
+        }
+        
+        function testUrlConstruction() {
+            const query = document.getElementById('testQuery').value;
+            if (!query) {
+                alert('Please enter a query');
+                return;
+            }
+            
+            const alternatives = getAlternativeSearchUrls(query);
+            const urlResultDiv = document.getElementById('urlResult');
+            
+            let html = '<strong>Alternative Search Engine URLs:</strong><br><br>';
+            for (const [engine, url] of Object.entries(alternatives)) {
+                html += `<strong>${engine.charAt(0).toUpperCase() + engine.slice(1)}:</strong> `;
+                html += `<a href="${url}" target="_blank">${url}</a><br>`;
+            }
+            
+            urlResultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
+
