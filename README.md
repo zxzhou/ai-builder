@@ -33,6 +33,17 @@ A JavaScript tool that enhances your web search experience by redirecting search
 - Works as bookmarklet, browser extension, or console script
 - Easy one-click redirect functionality
 
+### [Project 4: Image Analyzer](./project-4/)
+
+A desktop application that uses Google's Gemini AI to analyze images based on custom prompts. Built with Python and Tkinter, this tool provides an intuitive graphical interface for image analysis tasks.
+
+**Features:**
+- Custom prompts for flexible image analysis
+- Easy image selection with file browser
+- Real-time AI-powered analysis using Gemini 2.5 Flash Lite
+- User-friendly GUI built with Tkinter
+- Secure API key management with environment variables
+
 ## Getting Started
 
 Each project has its own README with specific installation and usage instructions. Navigate to the project folder for details.
