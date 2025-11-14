@@ -44,6 +44,18 @@ A desktop application that uses Google's Gemini AI to analyze images based on cu
 - User-friendly GUI built with Tkinter
 - Secure API key management with environment variables
 
+### [Project 5: Pi Day Challenge Circle Drawer](./project-5/)
+
+A Python program that draws a near-perfect circle in the [Pi Day Challenge game](https://yage.ai/genai/pi.html) to achieve a high rank. Uses mathematical precision to calculate optimal center point and radius, then draws perfectly smooth circles using browser automation.
+
+**Features:**
+- Two versions: Playwright (recommended) and PyAutoGUI
+- Optimal circle calculation (center at canvas center, 85% radius)
+- High precision: 1000 points (Playwright) or 720 points (PyAutoGUI)
+- Perfect circle closure for accurate Pi calculation
+- Smooth drawing with no zigzag artifacts (Playwright version)
+- Auto browser control (Playwright version)
+
 ## Getting Started
 
 Each project has its own README with specific installation and usage instructions. Navigate to the project folder for details.
