@@ -1,7 +1,4 @@
 # Dockerfile for project-8: AI-Powered Resume Builder
-# This Dockerfile builds the Next.js application from the project-8 directory
-
-# Use Node.js 18 LTS as base image
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
@@ -9,7 +6,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy project-8 package files
+# Copy package files
 COPY project-8/package.json project-8/package-lock.json* ./
 RUN npm ci
 
@@ -19,28 +16,21 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY project-8/ .
 
-# Build the Next.js application
+# Build Next.js
 RUN npm run build
 
-# Production image, copy all the files and run next
+# Production image
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy public folder
+# Copy necessary files from builder
 COPY --from=builder /app/public ./public
-
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# Automatically leverage output traces to reduce image size
-# Next.js standalone output is in .next/standalone
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
@@ -48,11 +38,9 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# Next.js standalone mode creates server.js in the standalone directory
-# The standalone server.js automatically uses PORT from environment
-# Use shell form to ensure PORT is properly expanded
-CMD sh -c "PORT=${PORT:-3000} node server.js"
+# Next.js standalone server.js reads PORT from environment automatically
+CMD ["node", "server.js"]
 
