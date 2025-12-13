@@ -1,0 +1,8 @@
+{
+  "repo_url": "https://github.com/your-username/your-repo-name",
+  "service_name": "resume-builder",
+  "branch": "main",
+  "port": 3000,
+  "env_vars": {}
+}
+
