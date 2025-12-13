@@ -13,7 +13,7 @@ const MODELS = [
   { value: 'supermind-agent-v1', label: 'Supermind Agent', description: 'Multi-tool agent with web search', speed: 'slow' },
 ]
 
-const SPEED_LABELS = {
+const SPEED_LABELS: Record<string, string> = {
   fast: '⚡ Fast',
   medium: '⚖️ Medium',
   slow: '🐌 Slower',
