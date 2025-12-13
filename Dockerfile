@@ -41,6 +41,7 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Next.js standalone server.js reads PORT from environment automatically
-CMD ["node", "server.js"]
+# Next.js standalone server.js reads PORT from environment
+# Use shell form as recommended by deployment guide to ensure PORT expansion
+CMD sh -c "node server.js"
 
