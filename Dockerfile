@@ -43,6 +43,7 @@ ENV HOSTNAME="0.0.0.0"
 
 # AI_BUILDER_TOKEN will be injected by Koyeb at runtime
 # Next.js standalone server.js reads PORT from environment
-# Use shell form as recommended by deployment guide to ensure PORT expansion
-CMD sh -c "node server.js"
+# Use shell form with explicit PORT as recommended by deployment guide
+# This ensures PORT environment variable is properly expanded
+CMD sh -c "PORT=${PORT:-3000} node server.js"
 
