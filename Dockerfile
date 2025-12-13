@@ -52,6 +52,7 @@ ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
 # Next.js standalone mode creates server.js in the standalone directory
-# Use shell form to properly expand PORT environment variable
-CMD sh -c "node server.js"
+# The standalone server.js automatically uses PORT from environment
+# Use shell form to ensure PORT is properly expanded
+CMD sh -c "PORT=${PORT:-3000} node server.js"
 
