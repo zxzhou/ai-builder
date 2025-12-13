@@ -3,9 +3,14 @@ import OpenAI from 'openai'
 const AI_BUILDER_BASE_URL = 'https://space.ai-builders.com/backend/v1'
 
 export function getAIBuilderClient() {
-  const apiKey = process.env.AI_BUILDER_TOKEN
+  // Try multiple ways to get the token (for different deployment scenarios)
+  const apiKey = process.env.AI_BUILDER_TOKEN || 
+                 process.env.NEXT_PUBLIC_AI_BUILDER_TOKEN ||
+                 process.env['AI_BUILDER_TOKEN']
   
   if (!apiKey) {
+    console.error('AI_BUILDER_TOKEN not found in environment variables')
+    console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('AI') || k.includes('BUILDER')))
     throw new Error('AI_BUILDER_TOKEN is not set in environment variables')
   }
 
