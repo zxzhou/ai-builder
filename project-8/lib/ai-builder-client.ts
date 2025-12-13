@@ -3,15 +3,16 @@ import OpenAI from 'openai'
 const AI_BUILDER_BASE_URL = 'https://space.ai-builders.com/backend/v1'
 
 export function getAIBuilderClient() {
-  // Try multiple ways to get the token (for different deployment scenarios)
-  const apiKey = process.env.AI_BUILDER_TOKEN || 
-                 process.env.NEXT_PUBLIC_AI_BUILDER_TOKEN ||
-                 process.env['AI_BUILDER_TOKEN']
+  // AI_BUILDER_TOKEN is injected by Koyeb at runtime
+  // In Next.js, server-side env vars are available via process.env
+  const apiKey = process.env.AI_BUILDER_TOKEN
   
   if (!apiKey) {
-    console.error('AI_BUILDER_TOKEN not found in environment variables')
-    console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('AI') || k.includes('BUILDER')))
-    throw new Error('AI_BUILDER_TOKEN is not set in environment variables')
+    // Log available env vars for debugging (but don't expose sensitive data)
+    const envKeys = Object.keys(process.env).sort()
+    console.error('AI_BUILDER_TOKEN not found. Available env vars:', envKeys.length)
+    console.error('Looking for AI_BUILDER_TOKEN in:', envKeys.filter(k => k.toUpperCase().includes('AI') || k.toUpperCase().includes('BUILDER')))
+    throw new Error('AI_BUILDER_TOKEN is not set in environment variables. Please ensure it is configured in your deployment environment.')
   }
 
   return new OpenAI({
