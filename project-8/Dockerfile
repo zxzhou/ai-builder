@@ -51,5 +51,5 @@ ENV HOSTNAME "0.0.0.0"
 
 # Next.js standalone mode automatically uses PORT environment variable
 # Use shell form to ensure PORT is properly expanded
-CMD sh -c "node server.js"
+CMD ["node", "server.js"]
 
