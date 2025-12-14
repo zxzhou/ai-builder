@@ -34,16 +34,11 @@ export default function ModelSelector({ value, onChange }: ModelSelectorProps) {
         >
           {MODELS.map((model) => (
             <option key={model.value} value={model.value}>
-              {model.label} {model.recommended ? '(Recommended)' : ''} - {model.description}
+              {model.label} - {model.description}
             </option>
           ))}
         </select>
         <div className="flex items-center gap-2">
-          {selectedModel?.recommended && (
-            <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded">
-              Recommended
-            </span>
-          )}
           {selectedModel?.speed && (
             <span className={`px-2 py-1 text-xs font-medium rounded ${
               selectedModel.speed === 'fast' ? 'bg-green-100 text-green-700' :
