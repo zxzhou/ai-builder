@@ -6,8 +6,6 @@ interface ModelSelectorProps {
 }
 
 const MODELS = [
-  { value: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro', description: 'Google\'s advanced Gemini model', recommended: true, speed: 'medium' },
-  { value: 'gpt-5', label: 'GPT-5', description: 'OpenAI\'s latest model', speed: 'medium' },
   { value: 'grok-4-fast', label: 'Grok 4 Fast', description: 'X.AI\'s fast Grok model', speed: 'fast' },
   { value: 'deepseek', label: 'DeepSeek', description: 'Fast and cost-effective', speed: 'fast' },
   { value: 'supermind-agent-v1', label: 'Supermind Agent', description: 'Multi-tool agent with web search', speed: 'slow' },

@@ -11,7 +11,7 @@ export default function Home() {
   const [jobDescription, setJobDescription] = useState('')
   const [jobDescriptionUrl, setJobDescriptionUrl] = useState('')
   const [resumeBullets, setResumeBullets] = useState('')
-  const [selectedModel, setSelectedModel] = useState('gemini-2.5-pro')
+  const [selectedModel, setSelectedModel] = useState('deepseek')
   const [optimizedBullets, setOptimizedBullets] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
